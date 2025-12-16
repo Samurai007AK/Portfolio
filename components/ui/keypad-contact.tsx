@@ -73,6 +73,35 @@ export const KeypadContact = () => {
         }
     }, [muted]);
 
+    const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setStatus("submitting");
+
+        const form = e.currentTarget;
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch("https://formspree.io/f/xdkqrdjk", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                setStatus("success");
+                form.reset();
+            } else {
+                setStatus("error");
+            }
+        } catch (error) {
+            setStatus("error");
+        }
+    };
+
     return (
         <section className="w-full border-t-4 border-black bg-gray-100 py-24 text-black" id="contact">
             <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-12 px-6 lg:flex-row">
@@ -90,20 +119,44 @@ export const KeypadContact = () => {
                             arijitkonar16@gmail.com
                         </a>
                     </p>
-                    <form className="flex gap-4" onSubmit={(e) => e.preventDefault()}>
-                        <input
-                            type="email"
-                            required
-                            placeholder="yourname@gmail.com"
-                            className="flex-1 rounded-none border-4 border-black bg-white px-4 py-3 font-mono text-black placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-black/20"
-                        />
-                        <button
-                            type="submit"
-                            className="rounded-none border-4 border-black bg-black px-6 py-3 font-bold uppercase text-white transition-transform hover:-translate-y-1 active:translate-y-0"
-                        >
-                            Send
-                        </button>
-                    </form>
+
+                    {status === "success" ? (
+                        <div className="border-4 border-black bg-[#2E8B57] p-6 text-white shadow-[8px_8px_0px_0px_#000000]">
+                            <h3 className="font-mono text-xl font-bold uppercase">Message Sent!</h3>
+                            <p className="font-mono text-sm">Thanks for reaching out. I'll get back to you soon.</p>
+                            <button
+                                onClick={() => setStatus("idle")}
+                                className="mt-4 font-bold underline hover:text-black"
+                            >
+                                Send another
+                            </button>
+                        </div>
+                    ) : (
+                        <form className="flex gap-4" onSubmit={handleSubmit}>
+                            <input
+                                type="email"
+                                name="email"
+                                required
+                                placeholder="yourname@gmail.com"
+                                disabled={status === "submitting"}
+                                className="flex-1 rounded-none border-4 border-black bg-white px-4 py-3 font-mono text-black placeholder:text-gray-400 focus:outline-none focus:ring-4 focus:ring-black/20 disabled:opacity-50"
+                            />
+                            <button
+                                type="submit"
+                                disabled={status === "submitting"}
+                                className="rounded-none border-4 border-black bg-black px-6 py-3 font-bold uppercase text-white transition-transform hover:-translate-y-1 active:translate-y-0 disabled:opacity-50 disabled:hover:translate-y-0"
+                            >
+                                {status === "submitting" ? "..." : "Send"}
+                            </button>
+                        </form>
+                    )}
+
+                    {status === "error" && (
+                        <p className="mt-2 font-mono text-sm text-red-600 font-bold">
+                            Oops! Something went wrong. Please try again.
+                        </p>
+                    )}
+
                     <div className="mt-4 flex items-center gap-2">
                         <button onClick={() => setMuted(!muted)} className="text-xs font-mono uppercase underline bg-transparent border-none p-0 cursor-pointer text-gray-500 hover:text-black">
                             {muted ? "Unmute Keypad" : "Mute Keypad"}
