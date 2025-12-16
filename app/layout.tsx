@@ -12,7 +12,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Use the Vercel URL if available, otherwise localhost
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: "Arijit Konar | System Developer",
   description: "Portfolio of Arijit Konar - DevOps, AI/ML, and System Developer. Showcasing projects in Serverless, Cloud, and Full Stack development.",
   keywords: ["Arijit Konar", "Portfolio", "DevOps", "AI/ML", "System Developer", "Next.js", "React"],
