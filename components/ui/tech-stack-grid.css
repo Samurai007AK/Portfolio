@@ -1,0 +1,186 @@
+/* Font Family Mappings to Next.js Variables */
+.font-source-serif {
+    font-family: var(--font-source-serif-pro), serif;
+}
+
+.font-alfa {
+    font-family: var(--font-alfa-slab-one), serif;
+}
+
+.font-merriweather {
+    font-family: var(--font-merriweather), serif;
+}
+
+/* Original CSS Port */
+.tech-grid-container {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: white;
+    color: black;
+}
+
+.tech-grid {
+    display: grid;
+}
+
+/* Initial Mobile Layout (default) */
+.tech-section-2,
+.tech-section-3,
+.tech-section-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid #000;
+}
+
+.tech-section-5 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+/* Typography Utilities from User CSS */
+.tech-stat {
+    font-size: 44px;
+    font-family: var(--font-alfa-slab-one), serif;
+    /* Replacing 'ultra' with Alfa as they are similar chunky serifs */
+    letter-spacing: -2px;
+    padding: 15px 0;
+}
+
+.tech-section-headline {
+    font-size: 30px;
+    padding: 30px 0 15px 0;
+    grid-column: span 2;
+}
+
+/* Media Queries */
+@media (min-width: 600px) {
+    .tech-page-title {
+        padding: 60px 0;
+    }
+
+    .tech-title-headline {
+        font-size: 65px;
+    }
+}
+
+@media (min-width: 800px) {
+    .tech-grid-container {
+        padding: 50px;
+    }
+
+    .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .tech-folio {
+        grid-column: span 4;
+    }
+
+    .tech-page-title {
+        grid-column: span 4;
+        padding: 90px 0;
+    }
+
+    .tech-section-1 {
+        grid-column: span 2;
+        border-bottom: 1px solid #000;
+        border-right: 1px solid #000;
+        padding-right: 30px;
+    }
+
+    .tech-hero-image {
+        grid-column: span 2;
+        padding-left: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tech-section-2 {
+        grid-column: span 3;
+        padding-right: 15px;
+    }
+
+    .tech-section-3 {
+        grid-column: span 1;
+        display: block;
+        border-left: 1px solid #000;
+        padding-left: 15px;
+    }
+
+    .tech-section-4 {
+        grid-column: span 2;
+        padding-right: 15px;
+        border-bottom: none;
+    }
+
+    .tech-section-5 {
+        grid-column: span 2;
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid #000;
+        padding-left: 15px;
+    }
+}
+
+@media (min-width: 1100px) {
+    .tech-grid-container {
+        max-width: 1040px;
+    }
+
+    .tech-grid {
+        grid-template-columns: repeat(7, 1fr);
+        /* Keeping auto rows instead of fixed 40px to accommodate content */
+        grid-auto-rows: minmax(40px, auto);
+    }
+
+    .tech-folio {
+        grid-column: span 7;
+    }
+
+    .tech-page-title {
+        grid-column: span 7;
+        padding: 100px 0;
+    }
+
+    .tech-title-headline {
+        font-size: 90px;
+    }
+
+    /* The complex grid areas from the user's CSS */
+    .tech-section-1 {
+        border-top: none;
+        grid-column: span 2;
+        border-right: none;
+    }
+
+    .tech-hero-image {
+        border-top: none;
+        padding: 30px;
+        grid-column: span 4;
+        border-left: 1px solid #000;
+    }
+
+    /* Adjusting to simpler span logic for consistency if grid areas break */
+    .tech-section-2 {
+        grid-column: span 3;
+        border-bottom: none;
+    }
+
+    .tech-section-3 {
+        grid-column: span 1;
+        border-bottom: none;
+        border-right: 1px solid #000;
+    }
+
+    .tech-section-4 {
+        grid-column: span 3;
+        padding-left: 15px;
+    }
+
+    .tech-section-5 {
+        grid-column: span 1;
+        /* Fits in the remaining slot/s */
+    }
+}
